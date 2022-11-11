@@ -1,4 +1,5 @@
 import csv
+import os
 from datetime import datetime
 from csv import DictWriter
 
@@ -11,29 +12,26 @@ filename = "logs/"+now.strftime("%m-%Y")+".csv"
 
 def new_file():
     mydict =[{'log_type': 'S', 'log': 'New file created for month', 'project': 'diju', 'date_time': now}]
-    # filename = now.strftime("%m-%Y")+".csv"
-    # writing to csv file
-    with open(filename, 'w') as csvfile:
-        # creating a csv dict writer object
-        writer = csv.DictWriter(csvfile, fieldnames = fields)
-            
-        # writing headers (field names)
-        writer.writeheader()
-            
-        # writing data rows
-        writer.writerows(mydict)
-
-def new_entry():
-    dict = {'log_type': 'S', 'log': 'New file created for month', 'project': 'diju', 'date_time': now}
-
-    with open(filename, 'a') as f_object:
-
-        dictwriter_object = DictWriter(f_object, fieldnames=fields)
-
-        dictwriter_object.writerow(dict)
-
-        f_object.close()
+    
+    if os.path.exists(filename):
+        print("file already exist")
+    else:
+        with open(filename, 'w') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames = fields)
+            writer.writeheader()
+            writer.writerows(mydict)
 
 
-# new_file()
-# new_entry()
+def new_entry(d):
+    dict = d
+    
+    if os.path.exists(filename):
+        with open(filename, 'a') as f_object:
+            dictwriter_object = DictWriter(f_object, fieldnames=fields)
+            dictwriter_object.writerow(dict)
+            f_object.close()
+    else:
+        new_file()
+
+
+new_entry({'log_type': 'S', 'log': 'New file created for month', 'project': 'diju', 'date_time': now})
