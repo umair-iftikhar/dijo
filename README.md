@@ -2,7 +2,7 @@
 Digital journal for daily logs
 
 
-## Why DiJu?
+## Why DiJo?
 At job, my day to day working involves different small taks with different projects. Every project have its story and timeline as well that need to be maintain. Because of this, I feel the need of a daily log or daily journal method. I was looking Bujo - bullet journal. Try to set on notebook, but I am not the best person for paper and pen.
 
 
