@@ -78,7 +78,7 @@ def new_entry(d):
     dict = d
     
     if os.path.exists(filename):
-        with open(filename, 'a') as f_object:
+        with open(filename, 'a', encoding='utf-8', newline='') as f_object:
             dictwriter_object = DictWriter(f_object, fieldnames=fields)
             dictwriter_object.writerow(dict)
             f_object.close()
