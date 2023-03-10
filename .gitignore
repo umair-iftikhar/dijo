@@ -1,4 +1,5 @@
 # Project files
+/python
 app/logs
 .DS_Store
 
