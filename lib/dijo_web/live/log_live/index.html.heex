@@ -1,0 +1,49 @@
+<.header>
+  Listing Logs
+  <:actions>
+    <.link patch={~p"/logs/new"}>
+      <.button>New Log</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="logs"
+  rows={@streams.logs}
+  row_click={fn {_id, log} -> JS.navigate(~p"/logs/#{log}") end}
+>
+  <:col :let={{_id, log}} label="Time"><%= log.inserted_at%></:col>
+  <:col :let={{_id, log}} label="Log type"><%= log.log_type %></:col>
+  <:col :let={{_id, log}} label="Log"><%= log.log %></:col>
+  <:col :let={{_id, log}} label="Project"><%= log.project %></:col>
+  <:action :let={{_id, log}}>
+    <div class="sr-only">
+      <.link navigate={~p"/logs/#{log}"}>Show</.link>
+    </div>
+    <.link patch={~p"/logs/#{log}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, log}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: log.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="log-modal"
+  show
+  on_cancel={JS.navigate(~p"/logs")}
+>
+  <.live_component
+    module={DijoWeb.LogLive.FormComponent}
+    id={@log.id || :new}
+    title={@page_title}
+    action={@live_action}
+    log={@log}
+    patch={~p"/logs"}
+  />
+</.modal>
