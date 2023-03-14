@@ -1,5 +1,5 @@
 # Project files
-app/logs
+logs/03-2023.csv
 .DS_Store
 
 # Byte-compiled / optimized / DLL files

@@ -1,6 +1,4 @@
-@@ -0,0 +1,22 @@
 import dijo
-
 
 def dj(): 
     
