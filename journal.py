@@ -4,25 +4,22 @@ import time
 from tkinter import messagebox
 
 
-# Define the GUI
 class JournalApp:
 
     def __init__(self, master):
         self.master = master
-        master.title("Journal App")
-
-        # Define the title
-        self.title = tk.Label(master, text="Journal App", font=("Arial", 14, "underline", "bold"))
-        self.title.pack(pady=10)
+        master.title("DIJO - The Journal App")
 
         # Define the entry prompt
-        self.prompt = tk.Label(master, text="Enter a journal entry:", font=("Arial", 12, "bold"))
-        self.prompt.pack()
+        tk.Label(master, text="Enter a journal entry:", font=("Arial", 12, "bold")).pack()
 
         # Create the entry field and set focus on it
         self.entry = tk.Entry(master, width=50, font=("Arial", 12))
         self.entry.pack(pady=10)
         self.entry.focus()
+
+        # Define the entry prompt
+        tk.Label(master, text="Journal Logs:", font=("Arial", 12, "bold")).pack()
 
         # Create the display area
         self.display = tk.Text(master, height=20, width=60, font=("Arial", 12))
@@ -31,8 +28,11 @@ class JournalApp:
         # Load existing entries from the CSV file
         with open('journal_entries.csv', newline='') as csvfile:
             reader = csv.reader(csvfile)
-            for row in reader:
-                self.display.insert(tk.END, row[1] + "\n")
+            for log_type, log_text, log_time in reader:
+                formatted_time = time.strftime('%b %d, %Y %I:%M %p', time.strptime(log_time, '%Y-%m-%d %H:%M:%S'))
+                tag = f'[{log_type.upper()}]' if log_type in ['n', 't', 'e', 'd'] else ''
+                log_entry = f'{tag} - {formatted_time} - {log_text}'
+                self.display.insert(tk.END, log_entry + "\n")
 
         # Bind the enter key to the submit_entry function
         self.master.bind('<Return>', self.submit_entry)
@@ -49,7 +49,9 @@ class JournalApp:
             timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 
             # Add the new entry to the display area
-            self.display.insert(tk.END, log_text + "\n")
+            tag = f'[{log_type.upper()}]'
+            log_entry = f'{tag} - {time.strftime("%b %d, %Y %I:%M %p", time.localtime())} - {log_text}'
+            self.display.insert(tk.END, log_entry + "\n")
 
             # Add the new entry to the CSV file
             with open('journal_entries.csv', 'a', newline='') as csvfile:
