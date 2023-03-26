@@ -4,7 +4,10 @@ from datetime import datetime
 from csv import DictWriter
 
 now = datetime.now()
+
+
 fields = ['log_type', 'log', 'project', 'date_time']
+
 
 # Create the file path
 filename = "logs/"+now.strftime("%m-%Y")+".csv"

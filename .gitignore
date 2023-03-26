@@ -2,6 +2,8 @@
 logs/03-2023.csv
 .DS_Store
 
+app
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
