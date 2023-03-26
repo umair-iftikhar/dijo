@@ -1,4 +1,3 @@
-@@ -1,2 +1,23 @@
 # dijo
 digital journal for daily logs
 # DIJO - Digital Journal
