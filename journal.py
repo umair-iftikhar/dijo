@@ -26,7 +26,7 @@ class JournalApp:
         self.display.pack(pady=10)
 
         # Load existing entries from the CSV file
-        with open('journal_entries.csv', newline='') as csvfile:
+        with open('logs/journal_entries.csv', newline='') as csvfile:
             reader = csv.reader(csvfile)
             for log_type, log_text, log_time in reader:
                 formatted_time = time.strftime('%b %d, %Y %I:%M %p', time.strptime(log_time, '%Y-%m-%d %H:%M:%S'))
@@ -54,7 +54,7 @@ class JournalApp:
             self.display.insert(tk.END, log_entry + "\n")
 
             # Add the new entry to the CSV file
-            with open('journal_entries.csv', 'a', newline='') as csvfile:
+            with open('logs/journal_entries.csv', 'a', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow([log_type, log_text, timestamp])
 
